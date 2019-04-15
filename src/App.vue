@@ -1,12 +1,6 @@
 <script>
   export default {
-    globalData () {
-      return {
-        pic: '',
-        text: '',
-        uid: '2222'
-      }
-    }
+
   }
 </script>
 

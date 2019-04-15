@@ -164,6 +164,7 @@
           }
           console.log('开始请求')
           let uid = this.globalData.uid
+          console.log(uid)
           api.sComment({
             method: 'POST',
             data: {

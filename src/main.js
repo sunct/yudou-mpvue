@@ -6,7 +6,9 @@ App.mpType = 'app'
 
 const app = new Vue(App)
 app.$mount()
-
+getApp().globalData = {uid: ''}
+Vue.prototype.globalData = getApp().globalData
+console.log(getApp())
 export default {
   config: {
     pages: [],
@@ -18,4 +20,3 @@ export default {
     }
   }
 }
-Vue.prototype.globalData = getApp().globalData

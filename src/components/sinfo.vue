@@ -33,7 +33,7 @@
                     </div>
                     <div class="flex-wrp vol-right-box" style=" flex-direction:column;">
                         <div class="vol-nick">{{item.nickName}}
-                            <text v-if="uid==item.uid" class="vol-del" :id="item.id" :data-index="index" :data-ctype="0" :data-sid="item.sid" bindtap='delComment'>删除</text>
+                            <text v-if="uid==item.uid" class="vol-del" :id="item.id" :data-index="nindex" :data-ctype="0" :data-sid="item.sid" @click='delComment'>删除</text>
                         </div>
                         <div>{{item.content}}</div>
                     </div>
@@ -50,7 +50,7 @@
                         <div class="flex-wrp vol-right-box" style=" flex-direction:column;">
                             <div class="vol-nick">{{item.nickName}}
                                 <text class="vol-up" v-if="item.is_up">置顶</text>
-                                <text v-if="uid==item.uid" class="vol-del" :id="item.id" :data-index="index" :data-ctype="1" :data-sid="item.sid" bindtap='delComment'>删除</text>
+                                <text v-if="uid==item.uid" class="vol-del" :id="item.id" :data-index="cindex" :data-ctype="1" :data-sid="item.sid" @click='delComment'>删除</text>
                             </div>
                             <div>{{item.content}}</div>
                             <block v-if="item.reply_content">
@@ -86,11 +86,24 @@
         sInfo: [],
         uid: '',
         commentinfo: [],
-        delid: ''
+        delid: '',
+        nocheckcomment: []
 
       }
     },
     mounted () {
+      // 获取uid
+      if (!this.globalData.uid) {
+        try {
+          let uid = wx.getStorageSync('uid')
+          if (uid) {
+            this.globalData.uid = uid
+          }
+        } catch (e) {
+          // Do something when catch error
+        }
+      }
+      // this.globalData.uid = 1234
       console.log('sinfo')
       console.log(this.timeDate)
       this.getTodaySinfo(this.timeDate, 1)
@@ -110,6 +123,7 @@
               // 获取评论
               // this.getNotCheckComment(newSInfo[0]['id'])
               this.getComment(sInfo[0]['id'])
+              this.getNotCheckComment(sInfo[0]['id'])
             }
           }
         })
@@ -138,6 +152,7 @@
         console.log(sid)
         console.log('gc')
         let uid = this.globalData.uid
+        console.log(this.globalData)
         console.log(uid)
         api.getComment({
           method: 'POST',
@@ -146,11 +161,65 @@
           },
           success: (res) => {
             if (res.data.code === 1) {
-              // console.log(res.data);
+              console.log(res.data)
               this.commentinfo = res.data.data
               this.uid = uid
               this.delid = ''
             }
+          }
+        })
+      },
+      // 获取自己（登录的情况下）未审核的留言
+      getNotCheckComment: function (sid) {
+        let uid = this.globalData.uid
+        api.getNotCheckComment({
+          method: 'POST',
+          data: {
+            sid: sid,
+            uid: uid
+          },
+          success: (res) => {
+            if (res.data.code === 1) {
+              console.log(res.data)
+              this.nocheckcomment = res.data.data
+              this.uid = uid
+              this.delid = ''
+            }
+          }
+        })
+      },
+      // 删除自己的留言
+      delComment (e) {
+        let that = this
+        let commentinfo = that.commentinfo
+        let nocheckcomment = that.nocheckcomment
+        let id = e.currentTarget.id
+        let ctype = e.currentTarget.dataset.ctype
+        // 获取列表中要删除项的下标
+        let index = e.target.dataset.index
+        api.delComment({
+          method: 'POST',
+          data: {
+            id: id
+          },
+          success: (res) => {
+            if (res.data.code === 1) {
+              wx.showToast({
+                title: res.data.msg,
+                icon: 'none',
+                duration: 2000
+              })
+              if (ctype === 1) {
+                // 移除列表中下标为index的项
+                commentinfo.splice(index, 1)
+              } else if (ctype === 0) {
+                // 移除列表中下标为index的项
+                nocheckcomment.splice(index, 1)
+              }
+            }
+            that.commentinfo = commentinfo
+            that.nocheckcomment = nocheckcomment
+            that.delid = id
           }
         })
       }
