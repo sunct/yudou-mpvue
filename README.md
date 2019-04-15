@@ -1,6 +1,12 @@
-# yudou
+# 雨豆
+> yudou-mpvue
+###基于mpvue框架平台的的微信小程序，
+<p align="center">
+<img width="100" src="https://img.sunsanmiao.cn/yudou/yudou.png" alt="mpvue-calendar logo">
+</p>
 
-> 雨豆
+  - mpvue@2.0.5
+  - mpvue-calendar@2.2.0
 
 ## Build Setup
 
@@ -33,5 +39,16 @@ npm build:my
 # 生成 bundle 分析报告
 npm run build --report
 ```
+###图文简介
+- 图文展示形式，底部三个按钮分别是：`回到今日`，`日历选择`，`关于`。
+- 点击图片可查看大图。
+- 点击日历，可选择日期。如图：
+<div style=“”>
+<img width=30% src="https://www.sunsanmiao.cn/wp-content/uploads/2019/04/1555335810144.jpg"/>
+<img width=30% src="https://www.sunsanmiao.cn/wp-content/uploads/2019/04/QQ20190415-215251@2x.png"/>
+<img width=30% src="https://www.sunsanmiao.cn/wp-content/uploads/2019/04/QQ20190415-215544@2x.png"/>
+</div>
+
+
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
