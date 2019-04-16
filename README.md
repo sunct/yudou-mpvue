@@ -62,12 +62,15 @@ npm run build --report
 - 点击底部`日历`或上方非灰色图层日历部分可收起日历。
 - 点击首页的 `写留言`，跳转到写留言界面，需要授权登录。
 - 自己写的留言可以在留言页删除。
-
+<div style=“”>
 <img width=30% src="https://www.sunsanmiao.cn/wp-content/uploads/2019/04/QQ20190415-221942@2x.png"/>
 <img width=30% src="https://www.sunsanmiao.cn/wp-content/uploads/2019/04/QQ20190415-221955@2x.png"/>
 <img width=30% src="https://www.sunsanmiao.cn/wp-content/uploads/2019/04/QQ20190415-222023@2x.png"/>
+</div>
 
-- <font color="red">说明：只有管理员才有审核按钮，才能审核留言。审核过的留言才能对所有人可见。</font>
+- 说明：只有管理员才有审核按钮，才能审核留言。审核过的留言才能对所有人可见。
+
+- 返回首页`下拉刷新`，便可看到自己的评论，也可对评论进行`删除`操作。
 
  
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

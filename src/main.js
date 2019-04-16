@@ -6,17 +6,4 @@ App.mpType = 'app'
 
 const app = new Vue(App)
 app.$mount()
-getApp().globalData = {uid: ''}
-Vue.prototype.globalData = getApp().globalData
-console.log(getApp())
-export default {
-  config: {
-    pages: [],
-    window: {
-      backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: '第一个小程序',
-      navigationBarTextStyle: 'black'
-    }
-  }
-}
+Vue.prototype.globalData = {uid: '', test: '测试全局变量'}

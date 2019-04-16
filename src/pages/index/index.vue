@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <swiper>
-            <sinfo :timeDate="timeDate" ref="sinfo" />
+            <Sinfo :timeDate="timeDate" ref="sinfo" />
         </swiper>
 
         <div class="my_calendar">
@@ -99,18 +99,6 @@
       Calendar, Sinfo
     },
     methods: {
-      selectMonth (month, year) {
-        console.log(year, month)
-      },
-      prev (month) {
-        console.log(month)
-      },
-      next (month) {
-        console.log(month)
-      },
-      selectYear (year) {
-        console.log(year)
-      },
       // 返回今天
       setToday () {
         // 获取今天时间 格式为【2019，1，1】

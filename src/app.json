@@ -5,6 +5,7 @@
     "pages/comment/main"
   ],
   "window": {
+    "enablePullDownRefresh": true,
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#3F3F47",
     "navigationBarTitleText": "雨豆",

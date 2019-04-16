@@ -72,6 +72,7 @@
 
 <script>
   import api from '../utils/api.js'
+
   export default {
     // 增加一个可从外部传入的属性
     props: {
@@ -103,13 +104,24 @@
           // Do something when catch error
         }
       }
-      // this.globalData.uid = 1234
-      console.log('sinfo')
-      console.log(this.timeDate)
-      this.getTodaySinfo(this.timeDate, 1)
+      this.getTodaySinfo()
+    },
+    onPullDownRefresh () {
+      let that = this
+      wx.showNavigationBarLoading() // 在标题栏中显示加载
+      // 模拟加载
+      setTimeout(function () {
+        // complete
+        that.getTodaySinfo()
+        wx.hideNavigationBarLoading() // 完成停止加载
+        wx.stopPullDownRefresh() // 停止下拉刷新
+      }, 1500)
     },
     methods: {
       getTodaySinfo (time, dir) {
+        if (!time) {
+          time = this.timeDate
+        }
         api.getSinfo({
           method: 'POST',
           data: {
@@ -142,18 +154,14 @@
       },
       // 写留言
       comment (e) {
-        console.log(e)
         let sid = e.currentTarget.id
-        console.log(sid)
         wx.navigateTo({ url: '../comment/main?sid=' + sid })
       },
       // 获取留言
       getComment (sid) {
-        console.log(sid)
-        console.log('gc')
         let uid = this.globalData.uid
-        console.log(this.globalData)
-        console.log(uid)
+        // console.log(this.globalData)
+        // console.log(uid)
         api.getComment({
           method: 'POST',
           data: {
@@ -161,7 +169,6 @@
           },
           success: (res) => {
             if (res.data.code === 1) {
-              console.log(res.data)
               this.commentinfo = res.data.data
               this.uid = uid
               this.delid = ''
@@ -180,7 +187,6 @@
           },
           success: (res) => {
             if (res.data.code === 1) {
-              console.log(res.data)
               this.nocheckcomment = res.data.data
               this.uid = uid
               this.delid = ''

@@ -64,10 +64,9 @@
       }
     },
     onLoad (options) {
-      console.log(options)
       let islogin = false
-      let that = this
       this.sid = options.sid
+      let that = this
       let manage = false
       // 查看是否授权
       wx.getSetting({
